@@ -1,0 +1,61 @@
+select * from "BioData"; -- Select
+
+select "BioData"."Name" as "Names" from "BioData" where "BioData"."Number" = 123 -- Where
+
+select "BioData"."Name" as "Names" from "BioData"
+order by "BioData"."Name" -- Order by
+
+select distinct "BioData"."Number" as "Names" from "BioData" limit 3 -- Limit
+
+select * from "BioData" 
+order by "BioData"."Number" desc
+limit 3 -- Orderby with Limit
+
+select "BioData"."Number" from "BioData" 
+group by "BioData"."Number" -- Group By
+
+select * from "BioData" 
+FETCH FIRST ROW ONLY; -- only one		 
+
+select "Name", "Number" from "BioData" 
+GROUP BY "Name",
+    CUBE ("Number") -- Cube function providing all possible combinations of data  ab, a(null), (null)b
+
+select "Name", "Number" from "BioData" 
+GROUP BY 
+    ROLLUP ("Name","Number") -- Rollup function providing only the combinations based on Column in Rollup function ab, a(null)
+
+UPSERT -- Update or insert in the table based on the certain constraint that is satisified.
+
+select * into "Bio-Temptable" from "BioData" -- create temp table
+
+https://www.postgresqltutorial.com/postgresql-alter-table/ -- Alter Scripts
+
+TRUNCATE TABLE "Bio-Temptable";
+
+select "Name","Number",
+case when "Number" > 200 then 'Large' else 'Too Larger' End NUMBERT from "BioData"; -- Case when
+
+SELECT
+	COALESCE (1, 2); -- Coalesce
+
+UPDATE "BioData"
+SET "Number" = '1236567' 
+WHERE "BioData".reg_id = 2
+RETURNING *;
+
+INSERT INTO "BioData"("Name", "Number", "reg_id")
+VALUES ('Aravindh', 4563, 1)
+RETURNING *;
+
+INSERT INTO "BioData"("Name", "Number", "reg_id")
+VALUES ('Thomas', 4563, 1),
+('Asif', 145, 3),
+('Adhi', 569, 1)
+RETURNING *;
+
+DELETE FROM "BioData"
+WHERE "BioData"."Number" = 569
+RETURNING *;
+
+COPY "BioData" TO 'D:\Downloads\biodata_db.csv' DELIMITER ',' CSV HEADER;
